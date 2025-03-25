@@ -10,6 +10,9 @@ class ServiceCatalogServiceProvider extends ServiceProvider
     {
         // Routes
         $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
+
+        // Config
+        $this->mergeConfigFrom(__DIR__ . '/config/service-catalog.php', 'service-catalog');
     }
 
     public function boot(): void
