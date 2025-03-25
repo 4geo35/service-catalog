@@ -2,5 +2,6 @@
 
 return [
     // Admin
+    "customCategoryModel" => null,
     "customAdminCategoryController" => null,
 ];
