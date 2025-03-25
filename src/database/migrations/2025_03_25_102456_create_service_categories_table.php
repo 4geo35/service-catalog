@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string("slug")
                 ->unique()
                 ->comment("Адресная строка");
+            $table->string("short")
+                ->nullable();
+            $table->text("description")
+                ->nullable();
             $table->unsignedBigInteger("image_id")
                 ->nullable()
                 ->comment("Обложка");

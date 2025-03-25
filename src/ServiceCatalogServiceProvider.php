@@ -2,7 +2,9 @@
 
 namespace GIS\ServiceCatalog;
 
+use GIS\ServiceCatalog\Livewire\Admin\Categories\CategoryListWire;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 
 class ServiceCatalogServiceProvider extends ServiceProvider
 {
@@ -19,5 +21,17 @@ class ServiceCatalogServiceProvider extends ServiceProvider
     {
         // Views
         $this->loadViewsFrom(__DIR__ . "/resources/views", "sc");
+
+        // Livewire
+        $this->addLivewireComponents();
+    }
+
+    protected function addLivewireComponents(): void
+    {
+        $component = config("service-catalog.customAdminCategoryListComponent");
+        Livewire::component(
+            "sc-admin-category-list",
+            $component ?? CategoryListWire::class
+        );
     }
 }
