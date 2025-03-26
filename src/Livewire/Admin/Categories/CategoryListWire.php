@@ -78,7 +78,7 @@ class CategoryListWire extends Component
     {
         if (! $this->checkAuth("create")) { return; }
         if ($this->parentId) {
-            $parent = $this->findModel();
+            $parent = $this->findModel($this->parentId);
             if (! $parent) { return; }
         }
         $this->validate();
