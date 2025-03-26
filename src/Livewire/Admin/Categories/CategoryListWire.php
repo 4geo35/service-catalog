@@ -2,6 +2,8 @@
 
 namespace GIS\ServiceCatalog\Livewire\Admin\Categories;
 
+use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
+use GIS\ServiceCatalog\Models\ServiceCategory;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -52,16 +54,43 @@ class CategoryListWire extends Component
         return view('sc::livewire.admin.categories.category-list-wire');
     }
 
+    public function closeData(): void
+    {
+        $this->displayData = false;
+        $this->resetFields();
+    }
+
     public function showCreate(int $parentId = null): void
     {
-        // TODO: check auth
         $this->resetFields();
+        if (! $this->checkAuth("create")) { return; }
+
         $this->parentId = $parentId;
         $this->displayData = true;
     }
 
+    public function closeDelete(): void
+    {
+        $this->displayDelete = false;
+        $this->resetFields();
+    }
+
     protected function resetFields(): void
     {
-        $this->reset("title", "slug", "cover", "short", "description", "coverUrl");
+        $this->reset("title", "slug", "cover", "short", "description", "coverUrl", "categoryId", "parentId");
+    }
+
+    protected function checkAuth(string $action, ServiceCategoryInterface $category = null): bool
+    {
+        try {
+            $categoryModelClass = config("service-catalog.customCategoryModel") ?? ServiceCategory::class;
+            $this->authorize($action, $category ?? $categoryModelClass);
+            return true;
+        } catch (\Exception $exception) {
+            session()->flash("error", "Неавторизованное действие");
+            $this->closeData();
+            $this->closeDelete();
+            return false;
+        }
     }
 }

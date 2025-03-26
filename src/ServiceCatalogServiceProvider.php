@@ -24,6 +24,9 @@ class ServiceCatalogServiceProvider extends ServiceProvider
 
         // Livewire
         $this->addLivewireComponents();
+
+        // Expand config
+        $this->expandConfiguration();
     }
 
     protected function addLivewireComponents(): void
@@ -33,5 +36,19 @@ class ServiceCatalogServiceProvider extends ServiceProvider
             "sc-admin-category-list",
             $component ?? CategoryListWire::class
         );
+    }
+
+    protected function expandConfiguration(): void
+    {
+        $sc = app()->config["service-catalog"];
+
+        $um = app()->config["user-management"];
+        $permissions = $um["permissions"];
+        $permissions[] = [
+            "title" => $sc["categoryPolicyTitle"],
+            "key" => $sc["categoryPolicyKey"],
+            "policy" => $sc["categoryPolicy"],
+        ];
+        app()->config["user-management.permissions"] = $permissions;
     }
 }
