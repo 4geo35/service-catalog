@@ -7,13 +7,14 @@ use GIS\Metable\Traits\ShouldMeta;
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
 use GIS\TraitsHelpers\Traits\ShouldMarkdown;
 use GIS\TraitsHelpers\Traits\ShouldSlug;
+use GIS\TraitsHelpers\Traits\ShouldTree;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ServiceCategory extends Model implements ServiceCategoryInterface
 {
-    use ShouldSlug, ShouldImage, ShouldMeta, ShouldMarkdown;
+    use ShouldSlug, ShouldImage, ShouldMeta, ShouldMarkdown, ShouldTree;
 
     protected $fillable = [
         "title",
@@ -23,13 +24,4 @@ class ServiceCategory extends Model implements ServiceCategoryInterface
         "priority",
     ];
 
-    public function parent(): BelongsTo
-    {
-        return $this->belongsTo(self::class, 'parent_id');
-    }
-
-    public function children(): HasMany
-    {
-        return $this->hasMany(self::class, 'parent_id');
-    }
 }

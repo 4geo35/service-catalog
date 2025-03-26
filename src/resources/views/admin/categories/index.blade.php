@@ -4,5 +4,5 @@
 
     <livewire:sc-admin-category-list />
 
-    @include("sc::admin.categories.includes.draggable-script")
+    @include("tt::admin.draggable-tree-script")
 </x-admin-layout>
