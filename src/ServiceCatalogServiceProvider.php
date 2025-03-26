@@ -2,6 +2,7 @@
 
 namespace GIS\ServiceCatalog;
 
+use GIS\ServiceCatalog\Helpers\ServiceCategoryActionsManager;
 use GIS\ServiceCatalog\Livewire\Admin\Categories\CategoryListWire;
 use GIS\ServiceCatalog\Models\ServiceCategory;
 use GIS\ServiceCatalog\Observers\ServiceCategoryObserver;
@@ -20,6 +21,9 @@ class ServiceCatalogServiceProvider extends ServiceProvider
 
         // Config
         $this->mergeConfigFrom(__DIR__ . '/config/service-catalog.php', 'service-catalog');
+
+        // Facades
+        $this->initFacades();
     }
 
     public function boot(): void
@@ -37,6 +41,14 @@ class ServiceCatalogServiceProvider extends ServiceProvider
         $categoryModelClass = config("service-catalog.customCategoryModel") ?? ServiceCategory::class;
         $categoryObserverClass = config("service-catalog.customCategoryModelObserver") ?? ServiceCategoryObserver::class;
         $categoryModelClass::observe($categoryObserverClass);
+    }
+
+    protected function initFacades(): void
+    {
+        $this->app->singleton("service-category-actions", function () {
+            $categoryActionsManagerClass = config("service-catalog.customCategoryActionsManager") ?? ServiceCategoryActionsManager::class;
+            return new $categoryActionsManagerClass;
+        });
     }
 
     protected function addLivewireComponents(): void

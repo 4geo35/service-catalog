@@ -21,6 +21,9 @@
                 <x-tt::notifications.error />
                 <x-tt::notifications.success />
             </div>
+             <div class="overflow-x-auto beautify-scrollbar" drag-category-root>
+                 @include("sc::admin.categories.includes.tree", ["tree" => $tree])
+             </div>
          </div>
      </div>
     @include("sc::admin.categories.includes.modals")

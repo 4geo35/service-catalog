@@ -12,5 +12,6 @@ Route::middleware(["web", "auth", "app-management"])
             ->group(function () {
                 $controllerClass = config("service-catalog.customAdminCategoryController") ?? CategoryController::class;
                 Route::get("/", [$controllerClass, "index"])->name("index");
+                Route::get("/{category}", [$controllerClass, "show"])->name("show");
             });
     });

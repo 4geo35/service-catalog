@@ -2,6 +2,7 @@
 
 namespace GIS\ServiceCatalog\Livewire\Admin\Categories;
 
+use GIS\ServiceCatalog\Facades\ServiceCategoryActions;
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
 use GIS\ServiceCatalog\Models\ServiceCategory;
 use GIS\TraitsHelpers\Traits\WireDeleteImageTrait;
@@ -14,7 +15,7 @@ class CategoryListWire extends Component
 {
     use WithFileUploads, WireDeleteImageTrait;
 
-    public bool $tmpTree = false;
+    public array|null $tmpTree = null;
     public bool $displayDelete = false;
     public bool $displayData = false;
     public bool $displayDeleteImage = false;
@@ -53,7 +54,9 @@ class CategoryListWire extends Component
 
     public function render(): View
     {
-        return view('sc::livewire.admin.categories.category-list-wire');
+        $tree = ServiceCategoryActions::getCategoryTree($this->tmpTree);
+        $this->dispatch("re-init-script");
+        return view('sc::livewire.admin.categories.category-list-wire', compact("tree"));
     }
 
     public function closeData(): void
