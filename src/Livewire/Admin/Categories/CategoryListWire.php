@@ -4,6 +4,7 @@ namespace GIS\ServiceCatalog\Livewire\Admin\Categories;
 
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
 use GIS\ServiceCatalog\Models\ServiceCategory;
+use GIS\TraitsHelpers\Traits\WireDeleteImageTrait;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -11,11 +12,12 @@ use Livewire\WithFileUploads;
 
 class CategoryListWire extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, WireDeleteImageTrait;
 
     public bool $tmpTree = false;
     public bool $displayDelete = false;
     public bool $displayData = false;
+    public bool $displayDeleteImage = false;
 
     public int|null $categoryId = null;
     public int|null $parentId = null;
