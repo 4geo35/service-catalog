@@ -18,4 +18,5 @@
             </div>
          </div>
      </div>
+    @include("sc::admin.categories.includes.modals")
 </div>
