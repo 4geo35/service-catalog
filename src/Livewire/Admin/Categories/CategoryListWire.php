@@ -32,12 +32,12 @@ class CategoryListWire extends Component
 
     public function rules(): array
     {
-        $uniqueCondition = "unique:categories,slug";
+        $uniqueCondition = "unique:service_categories,slug";
         if ($this->categoryId) { $uniqueCondition .= ",{$this->categoryId}"; }
         return [
             "title" => ["required", "string", "max:150"],
             "slug" => ["nullable", "string", "max:150", $uniqueCondition],
-            "cover" => ["nullable", "image", "mimes:jpg,jpeg,png"],
+            "cover" => ["nullable", "image", "mimes:jpg,jpeg,png,webp"],
             "short" => ["nullable", "string", "max:250"],
         ];
     }
@@ -102,10 +102,94 @@ class CategoryListWire extends Component
         $this->closeData();
     }
 
+    public function showEdit(int $id): void
+    {
+        $this->categoryId = $id;
+        $category = $this->findModel();
+        if (! $category) { return; }
+        if (! $this->checkAuth("update", $category)) { return; }
+
+        $this->displayData = true;
+        $this->title = $category->title;
+        $this->slug = $category->slug;
+        $this->short = $category->short;
+        $this->description = $category->description;
+        if ($category->image_id) {
+            $category->load("image");
+            $this->coverUrl = $category->image->storage;
+        } else { $this->coverUrl = null; }
+    }
+
+    public function update(): void
+    {
+        $category = $this->findModel();
+        if (! $category) { return; }
+        if (! $this->checkAuth("update", $category)) { return; }
+        $this->validate();
+
+        $category->update([
+            "title" => $this->title,
+            "slug" => $this->slug,
+            "short" => $this->short,
+            "description" => $this->description,
+        ]);
+        $category->livewireImage($this->cover);
+        session()->flash("success", "Категория успешно обновлена");
+        $this->closeData();
+    }
+
+    public function showDelete(int $id): void
+    {
+        $this->categoryId = $id;
+        $category = $this->findModel();
+        if (! $category) { return; }
+        if (! $this->checkAuth("delete", $category)) { return; }
+
+        $this->displayDelete = true;
+    }
+
+    public function confirmDelete(): void
+    {
+        $category = $this->findModel();
+        if (! $category) { return; }
+        if (! $this->checkAuth("delete", $category)) { return; }
+
+        if ($category->children->count()) {
+            session()->flash("error", "Невозможно удалить категорию, у которой есть дочерние категории");
+            $this->closeDelete();
+            return;
+        }
+
+        // TODO: Check category services
+
+        try {
+            $category->delete();
+            session()->flash("success", "Категория успешно удалена");
+        } catch (\Exception $exception) {
+            session()->flash("error", "Ошибка при удалении категории");
+        }
+        $this->closeDelete();
+    }
+
     public function closeDelete(): void
     {
         $this->displayDelete = false;
         $this->resetFields();
+    }
+
+    public function tmpOrder(array $tree): void
+    {
+        $this->tmpTree = $tree;
+        $this->dispatch("change-tree");
+    }
+
+    public function updateOrder(): void
+    {
+        if (! $this->checkAuth("order")) { return; }
+        $result = ServiceCategoryActions::rebuildTree($this->tmpTree);
+        $this->tmpTree = null;
+        if ($result) { session()->flash("success", "Дерево категорий изменено"); }
+        else { session()->flash("error", "Ошибка при обновлении дерева"); }
     }
 
     protected function resetFields(): void

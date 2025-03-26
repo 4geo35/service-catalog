@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static array getCategoryTree(array $newOrder = null)
+ * @method static bool rebuildTree(array $newOrder)
  *
  * @see ServiceCategoryActionsManager
  */

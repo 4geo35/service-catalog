@@ -55,7 +55,7 @@
                 </ul>
             @endif
 
-            @includeWhen(! empty($item["children"]), "cp::admin.categories.includes.tree", ["tree" => $item["children"], "child" => true])
+            @includeWhen(! empty($item["children"]), "sc::admin.categories.includes.tree", ["tree" => $item["children"], "child" => true])
         </li>
     @endforeach
 </ul>

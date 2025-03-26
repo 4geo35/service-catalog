@@ -19,6 +19,34 @@ class ServiceCategoryActionsManager
         return $this->sortByPriority($tree);
     }
 
+    public function rebuildTree(array $newOrder): bool
+    {
+        try {
+            $this->buildCategoryTree($newOrder);
+        } catch (\Exception $exception) {
+            return false;
+        }
+        return true;
+    }
+
+    protected function buildCategoryTree(array $newOrder, int $parent = null): void
+    {
+        foreach ($newOrder as $priority => $item) {
+            $id = $item["id"];
+            if (! empty($item["children"])) { $this->buildCategoryTree($item["children"], $id); }
+            $parentId = ! empty($parent) ? $parent : null;
+            $categoryModelClass = config("service-catalog.customCategoryModel") ?? ServiceCategory::class;
+            $category = $categoryModelClass::find($id);
+            /**
+             * @var ServiceCategoryInterface $category
+             */
+            if (! $category) { continue; }
+            $category->priority = $priority;
+            $category->parent_id = $parentId;
+            $category->save();
+        }
+    }
+
     protected function setTmpOrder(array $newOrder, array $tree): array
     {
         if (empty($newOrder)) { return []; }

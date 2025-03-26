@@ -58,9 +58,9 @@
             <div>
                 <label for="description" class="flex justify-start items-center mb-2">
                     Описание
-                    @include("tt::admin.description-button", ["id" => "description"])
+                    @include("tt::admin.description-button")
                 </label>
-                @include("tt::admin.description-info", ["id" => "description"])
+                @include("tt::admin.description-info")
                 <textarea id="description"
                           class="form-control !min-h-52 {{ $errors->has('description') ? 'border-danger' : '' }}"
                           rows="10"
