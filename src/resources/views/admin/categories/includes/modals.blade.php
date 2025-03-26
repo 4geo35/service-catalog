@@ -57,13 +57,13 @@
 
             <div>
                 <label for="description" class="flex justify-start items-center mb-2">
-                    Описание <span class="text-danger">*</span>
+                    Описание
                     @include("tt::admin.description-button", ["id" => "description"])
                 </label>
                 @include("tt::admin.description-info", ["id" => "description"])
                 <textarea id="description"
                           class="form-control !min-h-52 {{ $errors->has('description') ? 'border-danger' : '' }}"
-                          rows="10" required
+                          rows="10"
                           wire:model.live="description">
                         {{ $description }}
                     </textarea>

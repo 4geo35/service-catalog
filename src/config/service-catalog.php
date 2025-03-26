@@ -3,6 +3,8 @@
 return [
     // Admin
     "customCategoryModel" => null,
+    "customCategoryModelObserver" => null,
+
     "customAdminCategoryController" => null,
 
     // Components

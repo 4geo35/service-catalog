@@ -3,6 +3,8 @@
 namespace GIS\ServiceCatalog;
 
 use GIS\ServiceCatalog\Livewire\Admin\Categories\CategoryListWire;
+use GIS\ServiceCatalog\Models\ServiceCategory;
+use GIS\ServiceCatalog\Observers\ServiceCategoryObserver;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -10,6 +12,9 @@ class ServiceCatalogServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
+        // Migrations
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+
         // Routes
         $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
 
@@ -27,6 +32,11 @@ class ServiceCatalogServiceProvider extends ServiceProvider
 
         // Expand config
         $this->expandConfiguration();
+
+        // Observers
+        $categoryModelClass = config("service-catalog.customCategoryModel") ?? ServiceCategory::class;
+        $categoryObserverClass = config("service-catalog.customCategoryModelObserver") ?? ServiceCategoryObserver::class;
+        $categoryModelClass::observe($categoryObserverClass);
     }
 
     protected function addLivewireComponents(): void

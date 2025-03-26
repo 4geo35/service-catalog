@@ -32,10 +32,10 @@ class CategoryListWire extends Component
     public function rules(): array
     {
         $uniqueCondition = "unique:categories,slug";
-        if ($this->categoryId != null) { $uniqueCondition .= ",{$this->categoryId}"; }
+        if ($this->categoryId) { $uniqueCondition .= ",{$this->categoryId}"; }
         return [
             "title" => ["required", "string", "max:150"],
-            "slug" => ["required", "string", "max:150", $uniqueCondition],
+            "slug" => ["nullable", "string", "max:150", $uniqueCondition],
             "cover" => ["nullable", "image", "mimes:jpg,jpeg,png"],
             "short" => ["nullable", "string", "max:250"],
         ];
@@ -71,6 +71,34 @@ class CategoryListWire extends Component
         $this->displayData = true;
     }
 
+    public function store(): void
+    {
+        if (! $this->checkAuth("create")) { return; }
+        if ($this->parentId) {
+            $parent = $this->findModel();
+            if (! $parent) { return; }
+        }
+        $this->validate();
+        $data = [
+            "title" => $this->title,
+            "slug" => $this->slug,
+            "short" => $this->short,
+            "description" => $this->description,
+        ];
+        if ($this->parentId) {
+            $category = $parent->children()->create($data);
+        } else {
+            $categoryModelClass = config("service-catalog.customCategoryModel") ?? ServiceCategory::class;
+            $category = $categoryModelClass::create($data);
+        }
+        /**
+         * @var ServiceCategoryInterface $category
+         */
+        $category->livewireImage($this->cover);
+        session()->flash("success", "Категория успешно добавлена");
+        $this->closeData();
+    }
+
     public function closeDelete(): void
     {
         $this->displayDelete = false;
@@ -94,5 +122,19 @@ class CategoryListWire extends Component
             $this->closeDelete();
             return false;
         }
+    }
+
+    protected function findModel(int $id = null): ?ServiceCategoryInterface
+    {
+        $categoryModelClass = config("service-catalog.customCategoryModel") ?? ServiceCategory::class;
+        if ($id) { $category = $categoryModelClass::find($id); }
+        else { $category = $categoryModelClass::find($this->categoryId); }
+        if (! $category) {
+            session()->flash("error", "Категория не найдена");
+            $this->closeData();
+            $this->closeDelete();
+            return null;
+        }
+        return $category;
     }
 }
