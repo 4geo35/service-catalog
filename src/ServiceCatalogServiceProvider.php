@@ -4,7 +4,7 @@ namespace GIS\ServiceCatalog;
 
 use GIS\ServiceCatalog\Helpers\ServiceCategoryActionsManager;
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
-use GIS\ServiceCatalog\Livewire\Admin\Categories\CategoryListWire;
+use GIS\ServiceCatalog\Livewire\Admin\Categories\ListWire as CategoryListWire;
 use GIS\ServiceCatalog\Models\Service;
 use GIS\ServiceCatalog\Models\ServiceCategory;
 use GIS\ServiceCatalog\Observers\ServiceCategoryObserver;

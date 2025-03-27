@@ -11,7 +11,7 @@ use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
-class CategoryListWire extends Component
+class ListWire extends Component
 {
     use WithFileUploads, WireDeleteImageTrait;
 
@@ -56,7 +56,7 @@ class CategoryListWire extends Component
     {
         $tree = ServiceCategoryActions::getCategoryTree($this->tmpTree);
         $this->dispatch("re-init-script");
-        return view('sc::livewire.admin.categories.category-list-wire', compact("tree"));
+        return view('sc::livewire.admin.categories.list-wire', compact("tree"));
     }
 
     public function closeData(): void
