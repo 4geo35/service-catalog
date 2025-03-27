@@ -24,4 +24,9 @@ class ServiceCategory extends Model implements ServiceCategoryInterface
         "priority",
     ];
 
+    public function services(): HasMany
+    {
+        $serviceModelClass = config("service-catalog.customServiceModel") ?? Service::class;
+        return $this->hasMany($serviceModelClass, "category_id");
+    }
 }

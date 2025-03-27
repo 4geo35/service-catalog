@@ -3,9 +3,12 @@
 namespace GIS\ServiceCatalog;
 
 use GIS\ServiceCatalog\Helpers\ServiceCategoryActionsManager;
+use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
 use GIS\ServiceCatalog\Livewire\Admin\Categories\CategoryListWire;
+use GIS\ServiceCatalog\Models\Service;
 use GIS\ServiceCatalog\Models\ServiceCategory;
 use GIS\ServiceCatalog\Observers\ServiceCategoryObserver;
+use GIS\ServiceCatalog\Observers\ServiceObserver;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -24,6 +27,9 @@ class ServiceCatalogServiceProvider extends ServiceProvider
 
         // Facades
         $this->initFacades();
+
+        // Bindings
+        $this->bindInterfaces();
     }
 
     public function boot(): void
@@ -41,6 +47,16 @@ class ServiceCatalogServiceProvider extends ServiceProvider
         $categoryModelClass = config("service-catalog.customCategoryModel") ?? ServiceCategory::class;
         $categoryObserverClass = config("service-catalog.customCategoryModelObserver") ?? ServiceCategoryObserver::class;
         $categoryModelClass::observe($categoryObserverClass);
+
+        $serviceModelClass = config("service-catalog.customServiceModel") ?? Service::class;
+        $serviceObserverClass = config("service-catalog.customServiceModelObserver") ?? ServiceObserver::class;
+        $serviceModelClass::observe($serviceObserverClass);
+    }
+
+    protected function bindInterfaces(): void
+    {
+        $categoryModelClass = config("service-catalog.customCategoryModel") ?? ServiceCategory::class;
+        $this->app->bind(ServiceCategoryInterface::class, $categoryModelClass);
     }
 
     protected function initFacades(): void
@@ -70,6 +86,11 @@ class ServiceCatalogServiceProvider extends ServiceProvider
             "title" => $sc["categoryPolicyTitle"],
             "key" => $sc["categoryPolicyKey"],
             "policy" => $sc["categoryPolicy"],
+        ];
+        $permissions[] = [
+            "title" => $sc["servicePolicyTitle"],
+            "key" => $sc["servicePolicyKey"],
+            "policy" => $sc["servicePolicy"],
         ];
         app()->config["user-management.permissions"] = $permissions;
     }
