@@ -5,13 +5,15 @@ namespace GIS\ServiceCatalog\Livewire\Admin\Categories;
 use GIS\ServiceCatalog\Facades\ServiceCategoryActions;
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
 use GIS\ServiceCatalog\Models\ServiceCategory;
+use GIS\TraitsHelpers\Interfaces\WireTreeInterface;
+use GIS\TraitsHelpers\Interfaces\WireTreePublishInterface;
 use GIS\TraitsHelpers\Traits\WireDeleteImageTrait;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 
-class ListWire extends Component
+class ListWire extends Component implements WireTreeInterface, WireTreePublishInterface
 {
     use WithFileUploads, WireDeleteImageTrait;
 
@@ -175,6 +177,18 @@ class ListWire extends Component
     {
         $this->displayDelete = false;
         $this->resetFields();
+    }
+
+    public function switchPublish(int $id): void
+    {
+        $this->categoryId = $id;
+        $category = $this->findModel();
+        if (! $category) { return; }
+        if (! $this->checkAuth("update", $category)) { return; }
+        debugbar()->info($category);
+        $category->update([
+            "published_at" => $category->published_at ? null : now(),
+        ]);
     }
 
     public function tmpOrder(array $tree): void

@@ -31,6 +31,8 @@ return new class extends Migration
             $table->unsignedBigInteger("parent_id")
                 ->nullable()
                 ->comment("Родительская категория");
+            $table->dateTime("published_at")
+                ->nullable();
             $table->timestamps();
         });
     }

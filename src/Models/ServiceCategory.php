@@ -22,6 +22,7 @@ class ServiceCategory extends Model implements ServiceCategoryInterface
         "short",
         "description",
         "priority",
+        "published_at",
     ];
 
     public function services(): HasMany
