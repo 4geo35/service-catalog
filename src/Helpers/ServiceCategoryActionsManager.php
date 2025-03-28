@@ -2,6 +2,7 @@
 
 namespace GIS\ServiceCatalog\Helpers;
 
+use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
 use GIS\ServiceCatalog\Models\ServiceCategory;
 use GIS\TraitsHelpers\Interfaces\ShouldTreeInterface;
 use GIS\TraitsHelpers\Traits\ManagerTreeTrait;
@@ -14,6 +15,17 @@ class ServiceCategoryActionsManager
     {
         $this->modelClass = config("service-catalog.customCategoryModel") ?? ServiceCategory::class;
         $this->hasImage = true;
+    }
+
+    public function cascadeShutdown(ServiceCategoryInterface $category): void
+    {
+        foreach ($category->children as $child) {
+            if (! $child->published_at) { continue; }
+            $child->update([
+                "published_at" => null,
+            ]);
+            // TODO: shutdown services
+        }
     }
 
     protected function expandItemData(&$data, ShouldTreeInterface $category): void

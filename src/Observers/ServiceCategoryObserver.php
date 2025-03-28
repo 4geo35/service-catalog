@@ -2,6 +2,7 @@
 
 namespace GIS\ServiceCatalog\Observers;
 
+use GIS\ServiceCatalog\Facades\ServiceCategoryActions;
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
 use GIS\ServiceCatalog\Models\ServiceCategory;
 
@@ -17,5 +18,21 @@ class ServiceCategoryObserver
             ->max("priority");
         if (empty($priority)) { $priority = 0; }
         $category->priority = $priority + 1;
+    }
+
+    public function updated(ServiceCategoryInterface $category): void
+    {
+        if ($category->wasChanged("published_at")) {
+            if (! $category->published_at) { ServiceCategoryActions::cascadeShutdown($category); }
+        }
+
+        if ($category->wasChanged("parent_id")) {
+            $parent = $category->parent;
+            if ($parent && ! $parent->published_at) {
+                $category->published_at = null;
+                $category->saveQuietly();
+                ServiceCategoryActions::cascadeShutdown($category);
+            }
+        }
     }
 }
