@@ -20,9 +20,11 @@
                                    class="text-primary hover:text-primary-hover">
                                     {{ $service->category->title }}
                                 </a>
-                                <button type="button" class="text-info hover:text-info-hover ml-2 cursor-pointer" wire:click="showCategory">
-                                    <x-tt::ico.edit />
-                                </button>
+                                @can("update", $service)
+                                    <button type="button" class="text-info hover:text-info-hover ml-2 cursor-pointer" wire:click="showCategory">
+                                        <x-tt::ico.edit />
+                                    </button>
+                                @endcan
                             </div>
                         </div>
                     </div>

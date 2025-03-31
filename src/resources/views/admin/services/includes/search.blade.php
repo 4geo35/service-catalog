@@ -11,18 +11,20 @@
         </button>
     </div>
 
-    @can("create", config("service-catalog.customServiceModel") ?? \GIS\ServiceCatalog\Models\Service::class)
-        @if ($category)
-            <div class="flex items-center space-x-2">
+    @if ($category)
+        <div class="flex items-center space-x-2">
+            @can("create", config("service-catalog.customServiceModel") ?? \GIS\ServiceCatalog\Models\Service::class)
                 <button type="button" class="btn btn-primary px-btn-x-ico lg:px-btn-x ml-indent-half" wire:click="showCreate">
                     <x-tt::ico.circle-plus />
                     <span class="hidden lg:inline-block pl-btn-ico-text">Добавить</span>
                 </button>
+            @endcan
+            @can("order", config("service-catalog.customServiceModel") ?? \GIS\ServiceCatalog\Models\Service::class)
                 <button type="button" class="btn btn-primary px-btn-x-ico lg:px-btn-x ml-indent-half" wire:click="showOrder">
                     <x-tt::ico.bars />
                     <span class="hidden lg:inline-block pl-btn-ico-text">Порядок</span>
                 </button>
-            </div>
-        @endif
-    @endcan
+            @endcan
+        </div>
+    @endif
 </div>
