@@ -3,6 +3,9 @@
         <tr>
             <x-tt::table.heading class="text-left">Заголовок</x-tt::table.heading>
             <x-tt::table.heading class="text-left">Адресная строка</x-tt::table.heading>
+            @if (! $category)
+                <x-tt::table.heading class="text-left">Категория</x-tt::table.heading>
+            @endif
             <x-tt::table.heading class="text-left">Краткое описание</x-tt::table.heading>
             <x-tt::table.heading>Действия</x-tt::table.heading>
         </tr>
@@ -12,6 +15,14 @@
             <tr>
                 <td>{{ $item->title }}</td>
                 <td>{{ $item->slug }}</td>
+                @if (! $category)
+                    <td>
+                        <a href="{{ route('admin.service-categories.show', ['category' => $item->category]) }}"
+                           class="text-primary hover:text-primary-hover">
+                            {{ $item->category->title }}
+                        </a>
+                    </td>
+                @endif
                 <td>{{ $item->short }}</td>
                 <td>
                     <div class="flex items-center justify-center">

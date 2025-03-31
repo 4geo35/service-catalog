@@ -18,4 +18,15 @@ class ServiceObserver
         if (empty($priority)) { $priority = 0; }
         $service->priority = $priority + 1;
     }
+
+    public function updated(ServiceInterface $service): void
+    {
+        if (
+            $service->wasChanged("category_id") &&
+            ! $service->category->published_at
+        ) {
+            $service->published_at = null;
+            $service->saveQuietly();
+        }
+    }
 }
