@@ -162,7 +162,11 @@ class ListWire extends Component implements WireTreeInterface, WireTreePublishIn
             return;
         }
 
-        // TODO: Check category services
+        if ($category->services->count()) {
+            session()->flash("error", "Невозможно удалить категорию, у которой есть услуги");
+            $this->closeDelete();
+            return;
+        }
 
         try {
             $category->delete();
@@ -185,7 +189,6 @@ class ListWire extends Component implements WireTreeInterface, WireTreePublishIn
         $category = $this->findModel();
         if (! $category) { return; }
         if (! $this->checkAuth("update", $category)) { return; }
-        debugbar()->info($category);
         $category->update([
             "published_at" => $category->published_at ? null : now(),
         ]);

@@ -24,7 +24,15 @@ class ServiceCategoryActionsManager
             $child->update([
                 "published_at" => null,
             ]);
-            // TODO: shutdown services
+        }
+        // TODO: does need make queue?
+        $services = $category->services()
+            ->whereNotNull("published_at")
+            ->get();
+        foreach ($services as $service) {
+            $service->update([
+                "published_at" => null,
+            ]);
         }
     }
 
