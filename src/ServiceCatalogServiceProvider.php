@@ -4,6 +4,7 @@ namespace GIS\ServiceCatalog;
 
 use GIS\ServiceCatalog\Helpers\ServiceCategoryActionsManager;
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
+use GIS\ServiceCatalog\Interfaces\ServiceInterface;
 use GIS\ServiceCatalog\Livewire\Admin\Categories\ListWire as CategoryListWire;
 use GIS\ServiceCatalog\Livewire\Admin\Services\ListWire as ServiceListWire;
 use GIS\ServiceCatalog\Models\Service;
@@ -58,6 +59,9 @@ class ServiceCatalogServiceProvider extends ServiceProvider
     {
         $categoryModelClass = config("service-catalog.customCategoryModel") ?? ServiceCategory::class;
         $this->app->bind(ServiceCategoryInterface::class, $categoryModelClass);
+
+        $serviceModelClass = config("service-catalog.customServiceModel") ?? Service::class;
+        $this->app->bind(ServiceInterface::class, $serviceModelClass);
     }
 
     protected function initFacades(): void

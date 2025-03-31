@@ -1,5 +1,6 @@
 <?php
 
+use GIS\ServiceCatalog\Http\Controllers\Admin\ServiceController;
 use Illuminate\Support\Facades\Route;
 use GIS\ServiceCatalog\Http\Controllers\Admin\CategoryController;
 
@@ -18,11 +19,8 @@ Route::middleware(["web", "auth", "app-management"])
         Route::prefix("services")
             ->as("services.")
             ->group(function () {
-                Route::get("/", function (){
-                    return "Service listing";
-                })->name("index");
-               Route::get("/{service}", function () {
-                   return "Service";
-               })->name("show");
+                $controllerClass = config("service-catalog.customAdminServiceController") ?? ServiceController::class;
+                Route::get("/", [$controllerClass, "index"])->name("index");
+               Route::get("/{service}", [$controllerClass, "show"])->name("show");
             });
     });

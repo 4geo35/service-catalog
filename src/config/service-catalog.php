@@ -9,6 +9,7 @@ return [
     "customServiceModelObserver" => null,
 
     "customAdminCategoryController" => null,
+    "customAdminServiceController" => null,
 
     // Facades
     "customCategoryActionsManager" => null,

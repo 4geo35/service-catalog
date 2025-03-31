@@ -25,7 +25,7 @@ class ServiceCategoryActionsManager
                 "published_at" => null,
             ]);
         }
-        // TODO: does need make queue?
+        // TODO: does need make a queue?
         $services = $category->services()
             ->whereNotNull("published_at")
             ->get();
