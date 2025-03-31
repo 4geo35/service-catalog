@@ -62,4 +62,10 @@
             </tr>
         @endforeach
     </x-slot>
+    <x-slot name="caption">
+        <div class="flex justify-between">
+            <div>{{ __("Total") }}: {{ $services->total() }}</div>
+            {{ $services->links("tt::pagination.live") }}
+        </div>
+    </x-slot>
 </x-tt::table>

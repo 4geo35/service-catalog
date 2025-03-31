@@ -11,10 +11,11 @@ use GIS\TraitsHelpers\Traits\WireDeleteImageTrait;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 
 class ListWire extends Component
 {
-    use WithFileUploads, ServiceEditActions, WireDeleteImageTrait;
+    use WithFileUploads, WithPagination, ServiceEditActions, WireDeleteImageTrait;
 
     public ServiceCategoryInterface|null $category = null;
 
@@ -39,13 +40,14 @@ class ListWire extends Component
         BuilderActions::extendLike($query, $this->searchTitle, "title");
         BuilderActions::extendPublished($query, $this->searchPublished);
         $query->orderBy("priority");
-        $services = $query->get();
+        $services = $query->paginate();
         return view('sc::livewire.admin.services.list-wire', compact('services'));
     }
 
     public function clearSearch(): void
     {
         $this->reset("searchTitle", "searchPublished");
+        $this->resetPage();
     }
 
     public function showCreate(): void
