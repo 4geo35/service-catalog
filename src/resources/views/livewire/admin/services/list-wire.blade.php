@@ -6,9 +6,8 @@
                  <x-tt::notifications.error />
                  <x-tt::notifications.success />
              </div>
-
-             @include("sc::admin.services.includes.table")
-             @include("sc::admin.services.includes.table-modals")
          </div>
+         @include("sc::admin.services.includes.table")
+         @include("sc::admin.services.includes.table-modals")
      </div>
 </div>
