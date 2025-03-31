@@ -14,4 +14,15 @@ Route::middleware(["web", "auth", "app-management"])
                 Route::get("/", [$controllerClass, "index"])->name("index");
                 Route::get("/{category}", [$controllerClass, "show"])->name("show");
             });
+
+        Route::prefix("services")
+            ->as("services.")
+            ->group(function () {
+                Route::get("/", function (){
+                    return "Service listing";
+                })->name("index");
+               Route::get("/{service}", function () {
+                   return "Service";
+               })->name("show");
+            });
     });
