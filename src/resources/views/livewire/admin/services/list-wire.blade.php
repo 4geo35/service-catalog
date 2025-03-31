@@ -9,5 +9,6 @@
          </div>
          @include("sc::admin.services.includes.table")
          @include("sc::admin.services.includes.table-modals")
+         @include("sc::admin.services.includes.order-modal")
      </div>
 </div>

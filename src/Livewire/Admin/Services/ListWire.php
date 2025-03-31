@@ -8,6 +8,7 @@ use GIS\ServiceCatalog\Models\Service;
 use GIS\ServiceCatalog\Traits\ServiceEditActions;
 use GIS\TraitsHelpers\Facades\BuilderActions;
 use GIS\TraitsHelpers\Traits\WireDeleteImageTrait;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -21,6 +22,11 @@ class ListWire extends Component
 
     public string $searchTitle = "";
     public string $searchPublished = "all";
+
+    public bool $displayOrder = false;
+
+    public Collection|null $list = null;
+    public bool $hasSearch = false;
 
     protected function queryString(): array
     {
@@ -75,5 +81,37 @@ class ListWire extends Component
         $this->closeData();
 //        session()->flash("success", "Услуга успешно добавлена");
         $this->redirectRoute("admin.services.show", ["service" => $service]);
+    }
+
+    public function showOrder(): void
+    {
+        if (! $this->checkAuth("order")) { return; }
+        $this->displayOrder = true;
+        $this->setListItems();
+        $this->dispatch("update-list");
+    }
+
+    public function reorderItems(array $newOrder): void
+    {
+        if (! $this->checkAuth("order")) { return; }
+
+        foreach ($newOrder as $priority => $id) {
+            $this->serviceId = $id;
+            $service = $this->findModel();
+            if (! $service) { continue; }
+            $service->priority = $priority;
+            $service->save();
+        }
+        $this->resetFields();
+        $this->resetPage();
+        $this->setListItems();
+    }
+
+    protected function setListItems(): void
+    {
+        $this->list = $this->category->services()
+            ->select("id", "title")
+            ->orderBy("priority")
+            ->get();
     }
 }
