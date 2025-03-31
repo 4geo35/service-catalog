@@ -82,7 +82,7 @@ trait ServiceEditActions
         /**
          * @var ServiceInterface $service
          */
-        $service->livewireImage($this->coverUrl);
+        $service->livewireImage($this->cover);
         session()->flash("success", "Услуга успешно обновлена");
         $this->closeData();
         if (method_exists($this, "resetPage")) { $this->resetPage(); }

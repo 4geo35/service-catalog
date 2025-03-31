@@ -3,6 +3,7 @@
     <x-slot name="pageTitle">Услуга {{ $service->title }}</x-slot>
 
     <div class="space-y-indent">
+        <livewire:sc-admin-service-show :service="$service" />
         <livewire:eb-manage-blocks :model="$service" />
         <livewire:eb-block-list :model="$service" />
         <livewire:ma-metas :model="$service" />

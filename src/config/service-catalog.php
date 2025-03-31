@@ -20,6 +20,7 @@ return [
     // Components
     "customAdminCategoryListComponent" => null,
     "customAdminServiceListComponent" => null,
+    "customAdminServiceShowComponent" => null,
 
     // Policy
     "categoryPolicyTitle" => "Управление категориями услуг",
