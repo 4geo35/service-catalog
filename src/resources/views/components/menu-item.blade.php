@@ -6,3 +6,12 @@
         Категории услуг
     </x-tt::admin-menu.item>
 @endcan
+
+@can("viewAny", config("service-catalog.customServiceModel") ?? \GIS\ServiceCatalog\Models\Service::class)
+    <x-tt::admin-menu.item
+        href="{{ route('admin.services.index') }}"
+        :active="in_array(\Illuminate\Support\Facades\Route::currentRouteName(), ['admin.services.index', 'admin.services.show'])">
+        <x-slot name="ico"><x-sc::ico.services /></x-slot>
+        Услуги
+    </x-tt::admin-menu.item><x-tt::admin
+@endcan
