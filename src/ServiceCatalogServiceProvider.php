@@ -104,5 +104,12 @@ class ServiceCatalogServiceProvider extends ServiceProvider
             "policy" => $sc["servicePolicy"],
         ];
         app()->config["user-management.permissions"] = $permissions;
+
+        $eb = app()->config["editable-blocks"];
+        $models = $eb["models"];
+        $models["services"] = [
+            "allowedTypes" => $sc["allowedBlocks"],
+        ];
+        app()->config["editable-blocks.models"] = $models;
     }
 }

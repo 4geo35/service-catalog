@@ -1,6 +1,9 @@
 <?php
 
 return [
+    // Settings
+    "allowedBlocks" => [],
+
     // Admin
     "customCategoryModel" => null,
     "customCategoryModelObserver" => null,

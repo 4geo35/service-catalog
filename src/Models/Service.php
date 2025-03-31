@@ -2,6 +2,7 @@
 
 namespace GIS\ServiceCatalog\Models;
 
+use GIS\EditableBlocks\Traits\ShouldBlocks;
 use GIS\Fileable\Traits\ShouldImage;
 use GIS\Metable\Traits\ShouldMeta;
 use GIS\ServiceCatalog\Interfaces\ServiceInterface;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Service extends Model implements ServiceInterface
 {
-    use ShouldSlug, ShouldImage, ShouldMeta, ShouldHumanDate, ShouldHumanPublishDate;
+    use ShouldSlug, ShouldImage, ShouldMeta, ShouldHumanDate, ShouldHumanPublishDate, ShouldBlocks;
 
     protected $fillable = [
         "title",
