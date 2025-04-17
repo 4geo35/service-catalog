@@ -33,7 +33,7 @@
                          </div>
                      @endif
 
-                     @if($category->image_id)
+                     @if($category->image_id && $category->image)
                          <div class="row">
                              <div class="col w-full xs:w-2/5 mb-indent-half xs:mb-0">
                                  <h3 class="font-semibold">Изображение</h3>

@@ -63,7 +63,7 @@
                         </div>
                     @endif
 
-                    @if($service->image_id)
+                    @if($service->image_id && $service->image)
                         <div class="row">
                             <div class="col w-full xs:w-2/5 mb-indent-half xs:mb-0">
                                 <h3 class="font-semibold">Изображение</h3>
