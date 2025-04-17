@@ -6,6 +6,7 @@ use GIS\ServiceCatalog\Helpers\ServiceCategoryActionsManager;
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
 use GIS\ServiceCatalog\Interfaces\ServiceInterface;
 use GIS\ServiceCatalog\Livewire\Admin\Categories\ListWire as CategoryListWire;
+use GIS\ServiceCatalog\Livewire\Admin\Categories\ShowWire as CategoryShowWire;
 use GIS\ServiceCatalog\Livewire\Admin\Services\ListWire as ServiceListWire;
 use GIS\ServiceCatalog\Livewire\Admin\Services\ShowWire as ServiceShowWire;
 use GIS\ServiceCatalog\Models\Service;
@@ -79,6 +80,12 @@ class ServiceCatalogServiceProvider extends ServiceProvider
         Livewire::component(
             "sc-admin-category-list",
             $component ?? CategoryListWire::class
+        );
+
+        $component = config("service-catalog.customAdminCategoryShowComponent");
+        Livewire::component(
+            "sc-admin-category-show",
+            $component ?? CategoryShowWire::class
         );
 
         $component = config("service-catalog.customAdminServiceListComponent");

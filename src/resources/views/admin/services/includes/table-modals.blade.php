@@ -1,6 +1,6 @@
 <x-tt::modal.confirm wire:model="displayDelete">
     <x-slot name="title">Удалить услугу</x-slot>
-    <x-slot name="text">Будет невозможно удалить услугу</x-slot>
+    <x-slot name="text">Будет невозможно восстановить услугу</x-slot>
 </x-tt::modal.confirm>
 
 <x-tt::modal.aside wire:model="displayData">

@@ -62,7 +62,7 @@ class ShowWire extends Component
         $this->service->save();
         $this->service->fresh();
         $this->displayCategory = false;
-        session()->flash("success", "Категория успешно обновлена");
+        session()->flash("service-success", "Категория успешно обновлена");
     }
 
     protected function findCategory(int $id): ?ServiceCategoryInterface

@@ -19,6 +19,7 @@ return [
 
     // Components
     "customAdminCategoryListComponent" => null,
+    "customAdminCategoryShowComponent" => null,
     "customAdminServiceListComponent" => null,
     "customAdminServiceShowComponent" => null,
 

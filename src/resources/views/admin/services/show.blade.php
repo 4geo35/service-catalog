@@ -1,6 +1,6 @@
 <x-admin-layout>
-    <x-slot name="title">Услуга {{ $service->title }}</x-slot>
-    <x-slot name="pageTitle">Услуга {{ $service->title }}</x-slot>
+    <x-slot name="title">Просмотр услуги</x-slot>
+    <x-slot name="pageTitle">Просмотр услуги</x-slot>
 
     <div class="space-y-indent">
         <livewire:sc-admin-service-show :service="$service" />

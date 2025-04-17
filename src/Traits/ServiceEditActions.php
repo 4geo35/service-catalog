@@ -74,6 +74,8 @@ trait ServiceEditActions
         if (! $this->checkAuth("update", $service)) { return; }
         $this->validate();
 
+        $slugHasChanged = $this->slug !== $service->slug;
+
         $service->update([
             "title" => $this->title,
             "slug" => $this->slug,
@@ -83,10 +85,15 @@ trait ServiceEditActions
          * @var ServiceInterface $service
          */
         $service->livewireImage($this->cover);
-        session()->flash("success", "Услуга успешно обновлена");
+        session()->flash("service-success", "Услуга успешно обновлена");
         $this->closeData();
         if (method_exists($this, "resetPage")) { $this->resetPage(); }
-        if (isset($this->service)) $this->service->fresh();
+        if (isset($this->service)) {
+            $this->service->fresh();
+            if ($slugHasChanged) {
+                $this->redirectRoute("admin.services.show", ["service" => $this->service]);
+            }
+        }
     }
 
     public function closeDelete(): void
@@ -119,9 +126,9 @@ trait ServiceEditActions
 
         try {
             $service->delete();
-            session()->flash("success", "Услуга успешно удалена");
+            session()->flash("service-success", "Услуга успешно удалена");
         } catch (\Exception $exception) {
-            session()->flash("error", "Ошибка при удалении услуги");
+            session()->flash("service-error", "Ошибка при удалении услуги");
         }
 
         $this->closeDelete();
@@ -140,6 +147,7 @@ trait ServiceEditActions
         $service->update([
             "published_at" => $service->published_at ? null : now(),
         ]);
+        if (isset($this->service)) { $this->service->fresh(); }
     }
 
     protected function findModel(): ?ServiceInterface
@@ -149,7 +157,7 @@ trait ServiceEditActions
         $serviceModelClass = config("service-catalog.customServiceModel") ?? Service::class;
         $service = $serviceModelClass::find($this->serviceId);
         if (! $service) {
-            session()->flash("error", "Услуга не найдена");
+            session()->flash("service-error", "Услуга не найдена");
             $this->closeData();
             $this->closeDelete();
             return null;
@@ -169,7 +177,7 @@ trait ServiceEditActions
             $this->authorize($action, $service ?? $serviceModelClass);
             return true;
         } catch (AuthorizationException $e) {
-            session()->flash("error", "Неавторизованное действие");
+            session()->flash("service-error", "Неавторизованное действие");
             $this->closeData();
             $this->closeDelete();
             return false;

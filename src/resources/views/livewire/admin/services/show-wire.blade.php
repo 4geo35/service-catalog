@@ -3,8 +3,8 @@
         <div class="card-header">
             <div class="space-y-indent-half">
                 @include("sc::admin.services.includes.show-title")
-                <x-tt::notifications.error />
-                <x-tt::notifications.success />
+                <x-tt::notifications.error prefix="service-" />
+                <x-tt::notifications.success prefix="service-" />
             </div>
         </div>
         <div class="card-body">

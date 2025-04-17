@@ -10,6 +10,7 @@ use GIS\TraitsHelpers\Facades\BuilderActions;
 use GIS\TraitsHelpers\Traits\WireDeleteImageTrait;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -28,12 +29,19 @@ class ListWire extends Component
     public Collection|null $list = null;
     public bool $hasSearch = false;
 
+    public string|null $updateDate = null;
+
     protected function queryString(): array
     {
         return [
             "searchTitle" => ["as" => "title", "except" => ""],
             "searchPublished" => ["as" => "published", "except" => "all"],
         ];
+    }
+
+    public function mount(): void
+    {
+        $this->setUpdateTime();
     }
 
     public function render(): View
@@ -47,7 +55,14 @@ class ListWire extends Component
         BuilderActions::extendPublished($query, $this->searchPublished);
         $query->orderBy("priority");
         $services = $query->paginate();
-        return view('sc::livewire.admin.services.list-wire', compact('services'));
+        $time = $this->updateDate;
+        return view('sc::livewire.admin.services.list-wire', compact('services', "time"));
+    }
+
+    #[On("switch-category-published")]
+    public function setUpdateTime(): void
+    {
+        $this->updateDate = now()->format('Y-m-d H:i:s');
     }
 
     public function clearSearch(): void

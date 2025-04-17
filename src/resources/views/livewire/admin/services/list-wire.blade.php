@@ -3,8 +3,8 @@
          <div class="card-body">
              <div class="space-y-indent-half">
                  @include("sc::admin.services.includes.search")
-                 <x-tt::notifications.error />
-                 <x-tt::notifications.success />
+                 <x-tt::notifications.error prefix="service-" />
+                 <x-tt::notifications.success prefix="service-" />
              </div>
          </div>
          @include("sc::admin.services.includes.table")
