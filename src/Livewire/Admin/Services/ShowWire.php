@@ -50,7 +50,7 @@ class ShowWire extends Component
         $this->chosenCategory = $category;
     }
 
-    public function cancelChoose(): void
+    public function cancelChose(): void
     {
         $this->reset("chosenCategory");
     }

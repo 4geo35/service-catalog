@@ -13,7 +13,7 @@
                 <div class="space-y-indent-half">
                     <div class="font-semibold">Заменить {{ $service->category->title }} на {{ $chosenCategory->title }}?</div>
                     <div class="flex items-center space-x-2">
-                        <button type="button" class="btn btn-outline-dark" wire:click="cancelChoose">Отменить</button>
+                        <button type="button" class="btn btn-outline-dark" wire:click="cancelChose">Отменить</button>
                         <button type="button" class="btn btn-primary" wire:click="confirmChose">Подтвердить</button>
                     </div>
                 </div>
