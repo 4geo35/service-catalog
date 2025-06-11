@@ -13,6 +13,7 @@ use GIS\ServiceCatalog\Models\Service;
 use GIS\ServiceCatalog\Models\ServiceCategory;
 use GIS\ServiceCatalog\Observers\ServiceCategoryObserver;
 use GIS\ServiceCatalog\Observers\ServiceObserver;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 
@@ -48,6 +49,18 @@ class ServiceCatalogServiceProvider extends ServiceProvider
         $this->expandConfiguration();
 
         // Observers
+        $this->observeModels();
+        $this->setPolicies();
+    }
+
+    protected function setPolicies(): void
+    {
+        Gate::policy(config("service-catalog.customCategoryModel") ?? ServiceCategory::class, config("service-catalog.categoryPolicy"));
+        Gate::policy(config("service-catalog.customServiceModel" ?? Service::class), config("service-catalog.servicePolicy"));
+    }
+
+    protected function observeModels(): void
+    {
         $categoryModelClass = config("service-catalog.customCategoryModel") ?? ServiceCategory::class;
         $categoryObserverClass = config("service-catalog.customCategoryModelObserver") ?? ServiceCategoryObserver::class;
         $categoryModelClass::observe($categoryObserverClass);
