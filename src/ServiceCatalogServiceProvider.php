@@ -2,6 +2,7 @@
 
 namespace GIS\ServiceCatalog;
 
+use GIS\Fileable\Traits\ExpandTemplatesTrait;
 use GIS\ServiceCatalog\Helpers\ServiceCategoryActionsManager;
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
 use GIS\ServiceCatalog\Interfaces\ServiceInterface;
@@ -19,16 +20,18 @@ use Livewire\Livewire;
 
 class ServiceCatalogServiceProvider extends ServiceProvider
 {
+    use ExpandTemplatesTrait;
     public function register(): void
     {
         // Migrations
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
 
-        // Routes
-        $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
-
         // Config
         $this->mergeConfigFrom(__DIR__ . '/config/service-catalog.php', 'service-catalog');
+
+        // Routes
+        $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
+        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
 
         // Facades
         $this->initFacades();
@@ -117,6 +120,7 @@ class ServiceCatalogServiceProvider extends ServiceProvider
     protected function expandConfiguration(): void
     {
         $sc = app()->config["service-catalog"];
+        $this->expandTemplates($sc);
 
         $um = app()->config["user-management"];
         $permissions = $um["permissions"];
