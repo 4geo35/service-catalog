@@ -18,8 +18,7 @@
             <picture>
                 <source media="(min-width: 480px)"
                         srcset="{{ route('thumb-img', ['template' => $templateName, 'filename' => $category->image->file_name]) }}">
-                <img
-                    src="{{ route('thumb-img', ['template' => 'mobile-service-category-teaser', 'filename' => $category->image->file_name]) }}"
+                <img src="{{ route('thumb-img', ['template' => 'mobile-service-category-teaser', 'filename' => $category->image->file_name]) }}"
                     alt="">
             </picture>
         @else

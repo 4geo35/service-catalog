@@ -43,9 +43,11 @@ return [
 
     // Templates
     "templates" => [
-        "service-category-teaser-2" => \GIS\ServiceCatalog\Templates\CatalogTeaser2::class,
-        "service-category-teaser-3" => \GIS\ServiceCatalog\Templates\CatalogTeaser3::class,
-        "service-category-teaser-4" => \GIS\ServiceCatalog\Templates\CatalogTeaser4::class,
-        "mobile-service-category-teaser" => \GIS\ServiceCatalog\Templates\MobileCatalogTeaser::class,
+        "service-category-teaser-2" => \GIS\ServiceCatalog\Templates\CategoryTeaser2::class,
+        "service-category-teaser-3" => \GIS\ServiceCatalog\Templates\CategoryTeaser3::class,
+        "service-category-teaser-4" => \GIS\ServiceCatalog\Templates\CategoryTeaser4::class,
+        "mobile-service-category-teaser" => \GIS\ServiceCatalog\Templates\MobileCategoryTeaser::class,
+
+        "service-category-show" => \GIS\ServiceCatalog\Templates\CategoryShow::class,
     ],
 ];

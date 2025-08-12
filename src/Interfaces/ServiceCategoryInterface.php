@@ -6,6 +6,7 @@ use ArrayAccess;
 use GIS\Fileable\Interfaces\ShouldImageInterface;
 use GIS\Metable\Interfaces\ShouldMetaInterface;
 use GIS\TraitsHelpers\Interfaces\ShouldTreeInterface;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use JsonSerializable;
 use Stringable;
@@ -21,4 +22,6 @@ interface ServiceCategoryInterface extends Arrayable, ArrayAccess, CanBeEscapedW
     ShouldImageInterface, ShouldMetaInterface, ShouldTreeInterface
 {
     public function services(): HasMany;
+    public function parent(): BelongsTo;
+    public function children(): HasMany;
 }

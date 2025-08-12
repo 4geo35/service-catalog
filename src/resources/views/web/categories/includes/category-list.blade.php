@@ -1,3 +1,4 @@
+@props(["list"])
 @php
     $perCol = config("service-catalog.perCol");
     $colClasses = match ($perCol) {
@@ -8,7 +9,7 @@
 @endphp
 <div class="container">
     <div class="row">
-        @foreach($categories as $item)
+        @foreach($list as $item)
             <div class="col w-full {{ $colClasses }} mb-indent">
                 <x-sc::category.teaser :category="$item" />
             </div>
