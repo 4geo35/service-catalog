@@ -5,10 +5,10 @@ namespace GIS\ServiceCatalog\Templates;
 use Intervention\Image\Interfaces\ImageInterface;
 use Intervention\Image\Interfaces\ModifierInterface;
 
-class MobileCategoryTeaser implements ModifierInterface
+class TabletServiceTeaser implements ModifierInterface
 {
     public function apply(ImageInterface $image): ImageInterface
     {
-        return $image->cover(455, 410);
+        return $image->cover(540, 257);
     }
 }

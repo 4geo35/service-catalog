@@ -11,8 +11,10 @@
     <a href="{{ $url }}" class="block">
         @if ($service->image)
             <picture>
-                <source media="(min-width: 480px)"
+                <source media="(min-width: 768px)"
                         srcset="{{ route('thumb-img', ['template' => $templateName, 'filename' => $service->image->file_name]) }}">
+                <source media="(min-width: 480px)"
+                        srcset="{{ route('thumb-img', ['template' => 'tablet-service-teaser', 'filename' => $service->image->file_name]) }}">
                 <img src="{{ route('thumb-img', ['template' => 'mobile-service-teaser', 'filename' => $service->image->file_name]) }}"
                      alt="">
             </picture>
