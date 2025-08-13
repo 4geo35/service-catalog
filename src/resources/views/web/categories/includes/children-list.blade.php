@@ -1,7 +1,8 @@
 @props(["list"])
 @if ($list->count())
-    <div class="container py-indent" x-data="{ grabbing: false, initClientX: 0, maxScrollLeft: 0 }">
-        <div class="flex flex-nowrap items-center space-x-indent overflow-hidden cursor-grab"
+    <div class="container mb-indent-double" x-data="{ grabbing: false, initClientX: 0, maxScrollLeft: 0 }">
+        <div class="flex flex-nowrap items-center space-x-indent overflow-hidden"
+             :class="grabbing ? 'cursor-grabbing' : 'cursor-grab'"
              x-ref="categoryChildren"
              @mousedown="grabbing = true; initClientX = $event.clientX + $refs.categoryChildren.scrollLeft;"
              @mouseup="grabbing = false" @mouseleave="grabbing = false"
@@ -15,8 +16,8 @@
                     @else
                         <x-fa::ico.image width="56" height="56" class="mr-indent" />
                     @endif
-                    <a href="{{ route('web.service-catalog.show', ['category' => $child]) }}"
-                       class="text-lg sm:text-xl leading-6 font-semibold hover:text-primary-hover cursor-pointer">
+                    <a href="{{ route('web.service-categories.show', ['category' => $child]) }}"
+                       class="text-lg sm:text-xl leading-6 font-semibold hover:text-primary-hover cursor-pointer pointer-events-auto">
                         {{ $child->title }}
                     </a>
                 </div>

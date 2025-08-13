@@ -1,7 +1,7 @@
 @props(["category"])
 @php
     $perCol = config("service-catalog.perCol");
-    $url = route("web.service-catalog.show", ["category" => $category]);
+    $url = route("web.service-categories.show", ["category" => $category]);
     $templateName = match ($perCol) {
         4 => "service-category-teaser-4",
         3 => "service-category-teaser-3",

@@ -7,8 +7,10 @@ return [
     "useBreadcrumbs" => true,
     "catalogPageTitle" => "Услуги",
     "useH1" => true,
-    "customCategoryWebController" => null,
+    "customCatalogWebController" => null,
     "perCol" => 3, // 4,3,2
+    "servicePerCol" => 3, // 4,3
+    "customWebServiceListComponent" => null,
 
     // Settings
     "allowedBlocks" => [],

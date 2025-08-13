@@ -4,11 +4,12 @@ namespace GIS\ServiceCatalog\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use GIS\Metable\Facades\MetaActions;
+use GIS\ServiceCatalog\Facades\ServiceCategoryActions;
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
 use GIS\ServiceCatalog\Models\ServiceCategory;
 use Illuminate\View\View;
 
-class CategoryController extends Controller
+class CatalogController extends Controller
 {
     public function index(): View
     {
@@ -24,7 +25,7 @@ class CategoryController extends Controller
         return view("sc::web.categories.index", compact('metas', "categories"));
     }
 
-    public function show(ServiceCategoryInterface $category): View
+    public function category(ServiceCategoryInterface $category): View
     {
         if (! $category->published_at) { abort(404); }
         $metas = MetaActions::renderByModel($category);
@@ -35,6 +36,8 @@ class CategoryController extends Controller
             ->orderBy("priority")
             ->get();
 
-        return view("sc::web.categories.show", compact('category', 'metas', 'categoryChildren'));
+        $categoryParents = ServiceCategoryActions::getParents($category);
+
+        return view("sc::web.categories.show", compact('category', 'metas', 'categoryChildren', 'categoryParents'));
     }
 }

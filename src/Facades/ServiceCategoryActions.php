@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Facade;
  *
  * @method static void cascadeShutdown(ServiceCategoryInterface $category)
  *
+ * @method static array getServiceIds(ServiceCategoryInterface $category, bool $includeSubs = false)
+ * @method static array getChildrenIds(ServiceCategoryInterface $category, bool $includeSelf = false)
+ *
+ * @method static array getParents(ServiceCategoryInterface $category)
+ *
  * @see ServiceCategoryActionsManager
  */
 class ServiceCategoryActions extends Facade
