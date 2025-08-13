@@ -9,7 +9,7 @@ return [
     "useH1" => true,
     "customCatalogWebController" => null,
     "perCol" => 3, // 4,3,2
-    "servicePerCol" => 3, // 4,3
+    "servicePerCol" => 4, // 4,3
     "customWebServiceListComponent" => null,
 
     // Settings
@@ -52,5 +52,9 @@ return [
 
         "service-category-show" => \GIS\ServiceCatalog\Templates\CategoryShow::class,
         "service-category-small" => \GIS\ServiceCatalog\Templates\CategorySmall::class,
+
+        "service-teaser-3" => \GIS\ServiceCatalog\Templates\ServiceTeaser3::class,
+        "service-teaser-4" => \GIS\ServiceCatalog\Templates\ServiceTeaser4::class,
+        "mobile-service-teaser" => \GIS\ServiceCatalog\Templates\MobileServiceTeaser::class,
     ],
 ];
