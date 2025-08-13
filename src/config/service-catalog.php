@@ -49,5 +49,6 @@ return [
         "mobile-service-category-teaser" => \GIS\ServiceCatalog\Templates\MobileCategoryTeaser::class,
 
         "service-category-show" => \GIS\ServiceCatalog\Templates\CategoryShow::class,
+        "service-category-small" => \GIS\ServiceCatalog\Templates\CategorySmall::class,
     ],
 ];

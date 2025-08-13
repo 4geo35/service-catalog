@@ -2,7 +2,7 @@
     @include("sc::web.categories.includes.metas")
     @include("sc::web.categories.includes.show-breadcrumbs")
 
-    <div class="container">
+    <div class="container mb-indent">
         <div class="row">
             <div class="col w-7/12">
                 <x-tt::h1 class="mb-indent">{{ $category->title }}</x-tt::h1>
@@ -22,5 +22,6 @@
             @endif
         </div>
     </div>
-    <div class="h-screen"></div>
+
+    @include("sc::web.categories.includes.children-list", ["list" => $categoryChildren])
 </x-app-layout>

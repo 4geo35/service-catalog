@@ -28,7 +28,13 @@ class CategoryController extends Controller
     {
         if (! $category->published_at) { abort(404); }
         $metas = MetaActions::renderByModel($category);
-        $childrenCategories = $category->children()->whereNotNull("published_at")->orderBy("priority")->get();
-        return view("sc::web.categories.show", compact('category', 'metas', 'childrenCategories'));
+
+        $categoryChildren = $category->children()
+            ->with("image")
+            ->whereNotNull("published_at")
+            ->orderBy("priority")
+            ->get();
+
+        return view("sc::web.categories.show", compact('category', 'metas', 'categoryChildren'));
     }
 }
