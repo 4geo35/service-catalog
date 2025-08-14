@@ -3,6 +3,7 @@
 namespace GIS\ServiceCatalog\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use GIS\EditableBlocks\Facades\BlockRenderActions;
 use GIS\Metable\Facades\MetaActions;
 use GIS\ServiceCatalog\Facades\ServiceCategoryActions;
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
@@ -48,7 +49,8 @@ class CatalogController extends Controller
         $metas = MetaActions::renderByModel($service);
         $category = $service->category;
         $categoryParents = ServiceCategoryActions::getParents($category);
+        $blocks = BlockRenderActions::getByModel($service);
 
-        return view("sc::web.services.show", compact('metas', 'service', 'category', 'categoryParents'));
+        return view("sc::web.services.show", compact('metas', 'service', 'category', 'categoryParents', 'blocks'));
     }
 }

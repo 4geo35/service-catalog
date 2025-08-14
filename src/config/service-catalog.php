@@ -7,9 +7,11 @@ return [
     "useBreadcrumbs" => true,
     "catalogPageTitle" => "Услуги",
     "useH1" => true,
-    "customCatalogWebController" => null,
     "perCol" => 3, // 4,3,2
     "servicePerCol" => 4, // 4,3
+    "useImageOnShowPage" => true,
+
+    "customCatalogWebController" => null,
     "customWebServiceListComponent" => null,
 
     // Forms
@@ -71,5 +73,7 @@ return [
         "service-teaser-4" => \GIS\ServiceCatalog\Templates\ServiceTeaser4::class,
         "tablet-service-teaser" => \GIS\ServiceCatalog\Templates\TabletServiceTeaser::class,
         "mobile-service-teaser" => \GIS\ServiceCatalog\Templates\MobileServiceTeaser::class,
+
+        "service-show" => \GIS\ServiceCatalog\Templates\ServiceShow::class,
     ],
 ];

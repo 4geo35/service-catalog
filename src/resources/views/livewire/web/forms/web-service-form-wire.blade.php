@@ -18,8 +18,6 @@
             </x-slot>
         </x-tt::modal.dialog>
     @else
-        <div>
-            @include("sc::web.forms.service-request.form")
-        </div>
+        @include("sc::web.forms.service-request.form")
     @endif
 </div>
