@@ -11,6 +11,7 @@ use GIS\TraitsHelpers\Traits\ShouldHumanPublishDate;
 use GIS\TraitsHelpers\Traits\ShouldSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model implements ServiceInterface
 {
@@ -27,5 +28,11 @@ class Service extends Model implements ServiceInterface
     {
         $categoryModelClass = config("service-catalog.customCategoryModel") ?? ServiceCategory::class;
         return $this->belongsTo($categoryModelClass, "category_id");
+    }
+
+    public function forms(): HasMany
+    {
+        $serviceRequestModelClass = config("service-catalog.customServiceRequestRecordModel") ?? ServiceRequestRecord::class;
+        return $this->hasMany($serviceRequestModelClass, "service_id");
     }
 }

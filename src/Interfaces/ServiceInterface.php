@@ -13,6 +13,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\CanBeEscapedWhenCastToString;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use JsonSerializable;
 use Stringable;
 interface ServiceInterface extends Arrayable, ArrayAccess, CanBeEscapedWhenCastToString,
@@ -20,4 +21,5 @@ interface ServiceInterface extends Arrayable, ArrayAccess, CanBeEscapedWhenCastT
     ShouldImageInterface, ShouldMetaInterface, ShouldBlocksInterface
 {
     public function category(): BelongsTo;
+    public function forms(): HasMany;
 }

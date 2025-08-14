@@ -13,6 +13,7 @@ use GIS\ServiceCatalog\Livewire\Admin\Services\ListWire as ServiceListWire;
 use GIS\ServiceCatalog\Livewire\Admin\Services\ShowWire as ServiceShowWire;
 use GIS\ServiceCatalog\Livewire\Web\Services\ListWire as WebServiceShowWire;
 use GIS\ServiceCatalog\Livewire\Web\Forms\WebServiceFormWire;
+use GIS\ServiceCatalog\Livewire\Admin\Forms\ServiceRequestTableWire;
 use GIS\ServiceCatalog\Models\Service;
 use GIS\ServiceCatalog\Models\ServiceCategory;
 use GIS\ServiceCatalog\Observers\ServiceCategoryObserver;
@@ -129,6 +130,12 @@ class ServiceCatalogServiceProvider extends ServiceProvider
         Livewire::component(
             "sc-web-service-form",
             $component ?? WebServiceFormWire::class
+        );
+
+        $component = config("service-catalog.customAdminServiceFormTableComponent");
+        Livewire::component(
+            "sc-admin-service-form-table",
+            $component ?? ServiceRequestTableWire::class
         );
     }
 
