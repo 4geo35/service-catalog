@@ -8,7 +8,7 @@
                 <x-tt::h1 class="mb-indent">{{ $service->title }}</x-tt::h1>
                 @if ($blocks)
                     @foreach($blocks as $block)
-                        <x-dynamic-component :component="$block->render_type_component" :$block class="mb-indent" />
+                        <x-dynamic-component :component="$block->render_type_component" :$block class="mb-indent" :is-full-page="false" />
                     @endforeach
                 @endif
             </div>
