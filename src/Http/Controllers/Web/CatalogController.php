@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use GIS\Metable\Facades\MetaActions;
 use GIS\ServiceCatalog\Facades\ServiceCategoryActions;
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
+use GIS\ServiceCatalog\Interfaces\ServiceInterface;
 use GIS\ServiceCatalog\Models\ServiceCategory;
 use Illuminate\View\View;
 
@@ -39,5 +40,15 @@ class CatalogController extends Controller
         $categoryParents = ServiceCategoryActions::getParents($category);
 
         return view("sc::web.categories.show", compact('category', 'metas', 'categoryChildren', 'categoryParents'));
+    }
+
+    public function service(ServiceInterface $service): View
+    {
+        if (! $service->published_at) { abort(404); }
+        $metas = MetaActions::renderByModel($service);
+        $category = $service->category;
+        $categoryParents = ServiceCategoryActions::getParents($category);
+
+        return view("sc::web.services.show", compact('metas', 'service', 'category', 'categoryParents'));
     }
 }

@@ -12,6 +12,19 @@ return [
     "servicePerCol" => 4, // 4,3
     "customWebServiceListComponent" => null,
 
+    // Forms
+    "availableForms" => [
+        "service-request" => [
+            "title" => "Заказ услуги",
+            "notificationRow" => "sc::mail.rows.service-request",
+            "component" => "sc-web-service-form",
+            "admin" => "sc::admin.forms.service-request",
+        ],
+    ],
+    "formExternalExceptions" => ["service-request"],
+    "customWebServiceFormComponent" => null,
+    "customServiceRequestRecordModel" => null,
+
     // Settings
     "allowedBlocks" => [],
 

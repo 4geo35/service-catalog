@@ -1,5 +1,5 @@
 <x-app-layout>
-    @include("sc::web.categories.includes.metas")
+    @include("sc::web.categories.includes.show-metas")
     @include("sc::web.categories.includes.show-breadcrumbs")
 
     <div class="container mb-indent md:mb-indent-double">

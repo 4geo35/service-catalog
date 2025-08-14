@@ -15,7 +15,8 @@
         "4geo35/editable-blocks": "@dev",
         "4geo35/fileable": "@dev",
         "4geo35/metable": "@dev",
-        "4geo35/traits-helpers": "@dev"
+        "4geo35/traits-helpers": "@dev",
+        "4geo35/request-form": "@dev"
     },
     "autoload": {
         "psr-4": {

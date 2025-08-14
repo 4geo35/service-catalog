@@ -3,6 +3,7 @@
 namespace GIS\ServiceCatalog;
 
 use GIS\Fileable\Traits\ExpandTemplatesTrait;
+use GIS\RequestForm\Traits\ExpandFormsTrait;
 use GIS\ServiceCatalog\Helpers\ServiceCategoryActionsManager;
 use GIS\ServiceCatalog\Interfaces\ServiceCategoryInterface;
 use GIS\ServiceCatalog\Interfaces\ServiceInterface;
@@ -11,6 +12,7 @@ use GIS\ServiceCatalog\Livewire\Admin\Categories\ShowWire as CategoryShowWire;
 use GIS\ServiceCatalog\Livewire\Admin\Services\ListWire as ServiceListWire;
 use GIS\ServiceCatalog\Livewire\Admin\Services\ShowWire as ServiceShowWire;
 use GIS\ServiceCatalog\Livewire\Web\Services\ListWire as WebServiceShowWire;
+use GIS\ServiceCatalog\Livewire\Web\Forms\WebServiceFormWire;
 use GIS\ServiceCatalog\Models\Service;
 use GIS\ServiceCatalog\Models\ServiceCategory;
 use GIS\ServiceCatalog\Observers\ServiceCategoryObserver;
@@ -21,7 +23,7 @@ use Livewire\Livewire;
 
 class ServiceCatalogServiceProvider extends ServiceProvider
 {
-    use ExpandTemplatesTrait;
+    use ExpandTemplatesTrait, ExpandFormsTrait;
     public function register(): void
     {
         // Migrations
@@ -122,12 +124,19 @@ class ServiceCatalogServiceProvider extends ServiceProvider
             "cs-web-service-list",
             $component ?? WebServiceShowWire::class
         );
+
+        $component = config("service-catalog.customWebServiceFormComponent");
+        Livewire::component(
+            "sc-web-service-form",
+            $component ?? WebServiceFormWire::class
+        );
     }
 
     protected function expandConfiguration(): void
     {
         $sc = app()->config["service-catalog"];
         $this->expandTemplates($sc);
+        $this->expandForms($sc);
 
         $um = app()->config["user-management"];
         $permissions = $um["permissions"];
