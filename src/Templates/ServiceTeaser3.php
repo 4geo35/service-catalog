@@ -9,6 +9,6 @@ class ServiceTeaser3 implements ModifierInterface
 {
     public function apply(ImageInterface $image): ImageInterface
     {
-        return $image->cover(453, 250);
+        return $image->cover(464, 250);
     }
 }

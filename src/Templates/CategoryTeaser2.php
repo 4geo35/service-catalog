@@ -9,6 +9,6 @@ class CategoryTeaser2 implements ModifierInterface
 {
     public function apply(ImageInterface $image): ImageInterface
     {
-        return $image->cover(692, 336);
+        return $image->cover(708, 336);
     }
 }
