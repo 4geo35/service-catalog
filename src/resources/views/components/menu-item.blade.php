@@ -13,5 +13,5 @@
         :active="in_array(\Illuminate\Support\Facades\Route::currentRouteName(), ['admin.services.index', 'admin.services.show'])">
         <x-slot name="ico"><x-sc::ico.services /></x-slot>
         Услуги
-    </x-tt::admin-menu.item><x-tt::admin
+    </x-tt::admin-menu.item>
 @endcan
