@@ -122,7 +122,7 @@ class ServiceCatalogServiceProvider extends ServiceProvider
 
         $component = config("service-catalog.customWebServiceListComponent");
         Livewire::component(
-            "cs-web-service-list",
+            "sc-web-service-list",
             $component ?? WebServiceShowWire::class
         );
 

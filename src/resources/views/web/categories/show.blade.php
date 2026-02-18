@@ -26,7 +26,7 @@
 
     @include("sc::web.categories.includes.children-list", ["list" => $categoryChildren])
 
-    <livewire:cs-web-service-list :$category />
+    <livewire:sc-web-service-list :$category />
 
     <div class="container md:hidden mb-indent">
         <div class="prose max-w-none">
