@@ -25,39 +25,28 @@ use Livewire\Livewire;
 class ServiceCatalogServiceProvider extends ServiceProvider
 {
     use ExpandTemplatesTrait, ExpandFormsTrait;
+
     public function register(): void
     {
-        // Migrations
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
-
-        // Config
         $this->mergeConfigFrom(__DIR__ . '/config/service-catalog.php', 'service-catalog');
 
-        // Routes
-        $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
-        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
-
-        // Facades
         $this->initFacades();
-
-        // Bindings
         $this->bindInterfaces();
     }
 
     public function boot(): void
     {
-        // Views
         $this->loadViewsFrom(__DIR__ . "/resources/views", "sc");
 
-        // Livewire
-        $this->addLivewireComponents();
+        $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
+        $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
 
-        // Expand config
         $this->expandConfiguration();
-
-        // Observers
         $this->observeModels();
         $this->setPolicies();
+        
+        $this->addLivewireComponents();
     }
 
     protected function setPolicies(): void
