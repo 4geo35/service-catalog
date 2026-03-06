@@ -17,7 +17,7 @@
                     <img src="{{ route('thumb-img', ['template' => 'service-show', 'filename' => $service->image->file_name]) }}"
                          alt="" class="rounded-base mb-indent hidden lg:block">
                 @endif
-                <div class="rounded-base bg-primary/25 px-indent py-indent-double sticky top-0">
+                <div class="rounded-base bg-primary/25 px-indent py-indent-double sticky top-sticky">
                     <x-tt::h3 class="mb-indent">Свяжитесь <span class="text-nowrap">с нами</span></x-tt::h3>
                     <livewire:sc-web-service-form :$service />
                 </div>

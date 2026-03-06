@@ -16,7 +16,7 @@
                         <source media="(min-width: 480px)"
                                 srcset="{{ route('thumb-img', ['template' => 'service-category-show', 'filename' => $category->image->file_name]) }}">
                         <img src="{{ route('thumb-img', ['template' => 'service-category-show', 'filename' => $category->image->file_name]) }}"
-                            alt="" class="rounded-base sticky top-0">
+                            alt="" class="rounded-base sticky top-sticky">
                     </picture>
                 </div>
             @endif
