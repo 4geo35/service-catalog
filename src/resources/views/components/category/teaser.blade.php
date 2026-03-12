@@ -11,9 +11,14 @@
         4,3 => "xl:h-[207px] 2xl:h-[250px]",
         default => "xl:h-[280px] 2xl:h-[336px]",
     };
+    $imageHeight = match ($perCol) {
+        3 => "md:min-h-[182px] lg:min-h-[160px] xl:min-h-[205px] 2xl:min-h-[250px]",
+        4 => "md:min-h-[245px] lg:min-h-[216px] xl:min-h-[205px] 2xl:min-h-[250px]",
+        default => "md:min-h-[160px] lg:min-h-[216px] xl:min-h-[273px] 2xl:min-h-[336px]",
+    };
 @endphp
 <div class="h-full rounded-base flex flex-col overflow-hidden bg-white shadow-lg">
-    <a href="{{ $url }}" class="flex items-center justify-center xs:min-h-[217px] sm:min-h-[257px] md:min-h-[182px] lg:min-h-[160px] xl:min-h-[205px] 2xl:min-h-[250px]">
+    <a href="{{ $url }}" class="flex items-center justify-center xs:min-h-[217px] sm:min-h-[257px] {{ $imageHeight }}">
         @if ($category->image)
             <picture>
                 <source media="(min-width: 768px)"
