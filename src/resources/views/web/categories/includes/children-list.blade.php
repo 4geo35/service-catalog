@@ -13,7 +13,7 @@
                          :class="grabbing && 'select-none pointer-events-none'">
                         @if ($child->image)
                             <img src="{{ route('thumb-img', ['template' => 'service-category-small', 'filename' => $child->image->file_name]) }}"
-                                 alt="" class="rounded-base mr-indent pointer-events-none hidden md:block">
+                                 alt="" class="rounded-base mr-indent pointer-events-none hidden md:block w-[56px] h-[56px]">
                         @else
                             <x-fa::ico.image width="56" height="56" class="mr-indent hidden md:block" />
                         @endif
