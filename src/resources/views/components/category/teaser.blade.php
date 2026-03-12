@@ -13,7 +13,7 @@
     };
 @endphp
 <div class="h-full rounded-base flex flex-col overflow-hidden bg-white shadow-lg">
-    <a href="{{ $url }}" class="block">
+    <a href="{{ $url }}" class="flex items-center justify-center xs:min-h-[217px] sm:min-h-[257px] md:min-h-[182px] lg:min-h-[160px] xl:min-h-[205px] 2xl:min-h-[250px]">
         @if ($category->image)
             <picture>
                 <source media="(min-width: 768px)"
@@ -21,7 +21,8 @@
                 <source media="(min-width: 480px)"
                         srcset="{{ route('thumb-img', ['template' => "tablet-service-category-teaser", 'filename' => $category->image->file_name]) }}">
                 <img src="{{ route('thumb-img', ['template' => 'mobile-service-category-teaser', 'filename' => $category->image->file_name]) }}"
-                    alt="">
+                     class="h-full object-cover object-center"
+                     alt="">
             </picture>
         @else
             <span class="flex items-center justify-center">
