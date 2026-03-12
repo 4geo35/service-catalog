@@ -2,6 +2,7 @@
 
 namespace GIS\ServiceCatalog\Livewire\Web\Forms;
 
+use GIS\RequestForm\Facades\FormActions;
 use GIS\RequestForm\Interfaces\RequestFormShowInterface;
 use GIS\RequestForm\Traits\RequestFormActionsTrait;
 use GIS\ServiceCatalog\Interfaces\ServiceInterface;
@@ -31,11 +32,11 @@ class WebServiceFormWire extends Component implements RequestFormShowInterface
 
     public function rules(): array
     {
-        return [
+        return FormActions::prepareValidation([
             "name" => ["required", "string", "max:50"],
             "phone" => ["required", "string", "max:18", "min:18"],
             "privacy" => ["required"],
-        ];
+        ]);
     }
 
     public function validationAttributes(): array

@@ -7,14 +7,18 @@ return [
     "useBreadcrumbs" => true,
     "catalogPageTitle" => "Услуги",
     "useH1" => true,
+
     "perCol" => 3, // 4,3,2
     "servicePerCol" => 4, // 4,3
+
+    "useSplitPage" => false,
     "useImageOnShowPage" => true,
 
     "customCatalogWebController" => null,
     "customWebServiceListComponent" => null,
 
     // Forms
+    "disableForm" => false,
     "availableForms" => [
         "service-request" => [
             "title" => "Заказ услуги",

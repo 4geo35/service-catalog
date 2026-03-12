@@ -45,7 +45,7 @@ class ServiceCatalogServiceProvider extends ServiceProvider
         $this->expandConfiguration();
         $this->observeModels();
         $this->setPolicies();
-        
+
         $this->addLivewireComponents();
     }
 
@@ -132,7 +132,9 @@ class ServiceCatalogServiceProvider extends ServiceProvider
     {
         $sc = app()->config["service-catalog"];
         $this->expandTemplates($sc);
-        $this->expandForms($sc);
+        if (!config("service-catalog.disableForm")) {
+            $this->expandForms($sc);
+        }
 
         $um = app()->config["user-management"];
         $permissions = $um["permissions"];

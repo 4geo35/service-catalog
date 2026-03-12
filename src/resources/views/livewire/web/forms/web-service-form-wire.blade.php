@@ -18,6 +18,10 @@
             </x-slot>
         </x-tt::modal.dialog>
     @else
-        @include("sc::web.forms.service-request.form")
+        @if (config("service-catalog.useSplitPage"))
+            @include("sc::web.forms.service-request.form")
+        @else
+            @include("sc::web.forms.service-request.inline-form")
+        @endif
     @endif
 </div>
