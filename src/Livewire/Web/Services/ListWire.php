@@ -24,7 +24,7 @@ class ListWire extends Component
             ->with("image")
             ->whereIn('id', $sIds)
             ->orderBy("title")
-            ->paginate(12);
+            ->paginate(config("service-catalog.servicePerPage"));
         return view("sc::livewire.web.services.list-wire", compact("services"));
     }
 }

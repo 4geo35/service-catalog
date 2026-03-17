@@ -8,6 +8,7 @@ return [
     "catalogPageTitle" => "Услуги",
     "useH1" => true,
 
+    "servicePerPage" => 18,
     "perCol" => 3, // 4,3,2
     "servicePerCol" => 4, // 4,3
 
