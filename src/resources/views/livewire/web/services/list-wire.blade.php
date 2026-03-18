@@ -13,7 +13,7 @@
             </div>
         @endforeach
     </div>
-    @if ($services->hasMorePages())
+    @if ($services->hasPages())
         <div class="flex justify-between">
             <div>{{ __("Total") }}: {{ $services->total() }}</div>
             {{ $services->links("tt::pagination.web-live", ['scrollTo' => '#servicePageScroll']) }}
