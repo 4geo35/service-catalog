@@ -18,10 +18,14 @@
             </x-slot>
         </x-tt::modal.dialog>
     @else
-        @if (config("service-catalog.useSplitPage"))
-            @include("sc::web.forms.service-request.form")
-        @else
+        @php
+            $hasImage = config("service-catalog.useImageOnShowPage") && $service->image;
+            $isInline = !config("service-catalog.useSplitPage") && !$hasImage;
+        @endphp
+        @if ($isInline)
             @include("sc::web.forms.service-request.inline-form")
+        @else
+            @include("sc::web.forms.service-request.form")
         @endif
     @endif
 </div>

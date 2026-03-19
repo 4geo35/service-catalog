@@ -28,7 +28,7 @@
 
     <div>
         <textarea id="comment-{{ $formName }}{{ $modal ? 'modal-' : '' }}{{ ! empty($postfix) ? '-' . $postfix : '' }}"
-                  class="form-control !min-h-52 {{ $errors->has('comment') ? 'border-danger' : '' }}"
+                  class="form-control !min-h-26 {{ $errors->has('comment') ? 'border-danger' : '' }}"
                   rows="10" placeholder="Комментарий"
                   wire:model.live="comment">
             {{ $comment }}

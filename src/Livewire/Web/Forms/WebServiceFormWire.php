@@ -26,7 +26,7 @@ class WebServiceFormWire extends Component implements RequestFormShowInterface
     public string $name = "";
     public string $phone = "";
     public string $comment = "";
-    public bool $privacy = true;
+    public bool $privacy = false;
 
     public string $prefix = "";
 
