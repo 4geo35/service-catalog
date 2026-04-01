@@ -23,6 +23,7 @@ class ListWire extends Component
         $services = $serviceClass::query()
             ->with("image")
             ->whereIn('id', $sIds)
+            ->orderBy("priority")
             ->orderBy("title")
             ->paginate(config("service-catalog.servicePerPage"));
         return view("sc::livewire.web.services.list-wire", compact("services"));
