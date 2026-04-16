@@ -1,4 +1,4 @@
-<form wire:submit.prevet="store">
+<form wire:submit.prevet="store" class="space-y-indent-half">
     <x-tt::notifications.error :prefix="$prefix" />
     <x-tt::notifications.success :prefix="$prefix" />
     <x-rf::hidden-wire-field />

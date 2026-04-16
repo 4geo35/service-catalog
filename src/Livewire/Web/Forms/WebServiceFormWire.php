@@ -6,7 +6,6 @@ use GIS\RequestForm\Facades\FormActions;
 use GIS\RequestForm\Interfaces\RequestFormShowInterface;
 use GIS\RequestForm\Traits\RequestFormActionsTrait;
 use GIS\ServiceCatalog\Interfaces\ServiceInterface;
-use GIS\ServiceCatalog\Models\ServiceRequestRecord;
 use Illuminate\View\View;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -23,6 +22,7 @@ class WebServiceFormWire extends Component implements RequestFormShowInterface
     public string $postfix = "";
     public string $double = "";
 
+    public string $hidden = "";
     public string $name = "";
     public string $phone = "";
     public string $comment = "";
